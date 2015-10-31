@@ -22,6 +22,11 @@ public class Position {
         this.longitude = longitude;
     }
 
+    public Position() {
+    }
+
+    ;
+
     public Integer getUserId() {
         return userId;
     }

@@ -11,5 +11,6 @@ public class PersistenceConstants {
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
     public static final String DATE = "date";
+    public static final String ID = "ID";
 
 }
