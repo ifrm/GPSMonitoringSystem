@@ -16,6 +16,7 @@ public interface PositionService {
 
     void updatePosition(int id, String jsonPosition) throws Exception;
 
-    List<Position> getUserPosition(int userId, Long startDate, Long endDate) throws Exception;
+    List<Position> getUserPositionsWithinInterval(int userId, Long startDate, Long endDate) throws Exception;
+
 }
 

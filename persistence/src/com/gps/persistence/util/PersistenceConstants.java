@@ -12,5 +12,8 @@ public class PersistenceConstants {
     public static final String LONGITUDE = "longitude";
     public static final String DATE = "date";
     public static final String ID = "ID";
+    //Mysql-DB Specific
+    public static final String MYSQL_TIMESTAMP_MAX_VALUE = "2147483647000";
+    public static final String MYSQL_TIMESTAMP_MIN_VALUE = "0";
 
 }

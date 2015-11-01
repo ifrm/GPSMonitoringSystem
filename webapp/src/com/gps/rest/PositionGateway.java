@@ -1,25 +1,25 @@
 package com.gps.rest;
 
 import com.gps.persistence.dto.Position;
+import com.gps.persistence.util.PersistenceConstants;
 import com.gps.rest.util.WsConstants;
 import com.gps.service.position.PositionService;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Date;
 import java.util.List;
-
-import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * @author radu.miron
  * @since 10/8/13
  */
 @Component
-@Path("/position")
+@Path("/positions")
 public class PositionGateway {
     @Autowired
     private PositionService positionService;
@@ -73,9 +73,11 @@ public class PositionGateway {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getUserPositions(@QueryParam("userId") Integer userId, @QueryParam("startDate") Long startDate, @QueryParam("endDate") Long endDate) {
+    public Response getUserPositionsWithinInterval(@QueryParam("userId") Integer userId, @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MIN_VALUE) @QueryParam("startDate") Long startDate, @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MAX_VALUE) @QueryParam("endDate") Long endDate) {
         try {
-            List<Position> pos = positionService.getUserPosition(userId, startDate, endDate);
+            System.out.println("userId = [" + userId + "], startDate = [" + new Date(startDate) + "], endDate = [" + new Date(endDate) + "]");
+            System.out.println("userId = [" + userId + "], startDate = [" + startDate + "], endDate = [" + endDate + "]");
+            List<Position> pos = positionService.getUserPositionsWithinInterval(userId, startDate, endDate);
             ObjectMapper mapper = new ObjectMapper();
             return Response.status(200).entity(mapper.writeValueAsString(pos)).build();
         } catch (Exception e) {

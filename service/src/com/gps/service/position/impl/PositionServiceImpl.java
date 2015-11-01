@@ -29,8 +29,9 @@ public class PositionServiceImpl implements PositionService {
         positionDao.savePosition(JsonToObjectConverters.convertJsonToPosition(jsonPosition));
     }
 
+
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public void deletePosition(int id) throws Exception {
         positionDao.deletePosition(id);
     }
@@ -43,9 +44,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<Position> getUserPosition(int userId, Long startDate, Long endDate) throws Exception {
-        return positionDao.getUserPositions(userId, new Date(startDate), new Date(endDate));
+    public List<Position> getUserPositionsWithinInterval(int userId, Long startDate, Long endDate) throws Exception {
+        return positionDao.getUserPositionsWithinInterval(userId, new Date(startDate), new Date(endDate));
     }
-
-
 }

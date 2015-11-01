@@ -17,6 +17,6 @@ public interface PositionDao {
 
     void updatePosition(int id, Position position) throws Exception;
 
-    public List<Position> getUserPositions(int userId, Date startDate, Date endDate) throws Exception;
+    List<Position> getUserPositionsWithinInterval(int userId, Date startDate, Date endDate) throws Exception;
 
 }

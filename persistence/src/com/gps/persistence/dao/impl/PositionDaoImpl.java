@@ -88,7 +88,7 @@ public class PositionDaoImpl implements PositionDao {
     }
 
     @Override
-    public List<Position> getUserPositions(int userId, Date startDate, Date endDate) throws Exception {
+    public List<Position> getUserPositionsWithinInterval(int userId, Date startDate, Date endDate) throws Exception {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT " + PersistenceConstants.USER_ID + "," + PersistenceConstants.LATITUDE + ",");
@@ -101,7 +101,7 @@ public class PositionDaoImpl implements PositionDao {
         params.put("userId", userId);
         params.put("startDate", startDate);
         params.put("endDate", endDate);
-        List<Position> result = null;
+        List<Position> result;
         try {
             result = jdbcTemplate.query(sql.toString(), params, new PositionRowMapper());
         } catch (Exception e) {
