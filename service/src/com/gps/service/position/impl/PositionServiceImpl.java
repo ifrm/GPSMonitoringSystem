@@ -43,8 +43,8 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<Position> getUserPosition(int userId, String startDate, String endDate) throws Exception {
-        return positionDao.getUserPositions(userId, new Date(Long.valueOf(startDate)), new Date(Long.valueOf(endDate)));
+    public List<Position> getUserPosition(int userId, Long startDate, Long endDate) throws Exception {
+        return positionDao.getUserPositions(userId, new Date(startDate), new Date(endDate));
     }
 
 

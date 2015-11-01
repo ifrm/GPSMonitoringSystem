@@ -73,11 +73,11 @@ public class PositionGateway {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getUserPositions(@QueryParam("userId") Integer userId, @QueryParam("startDate") String startDate, @QueryParam("endDate") String endDate) {
+    public Response getUserPositions(@QueryParam("userId") Integer userId, @QueryParam("startDate") Long startDate, @QueryParam("endDate") Long endDate) {
         try {
             List<Position> pos = positionService.getUserPosition(userId, startDate, endDate);
             ObjectMapper mapper = new ObjectMapper();
-            return Response.ok(mapper.writeValueAsString(pos)).build();
+            return Response.status(200).entity(mapper.writeValueAsString(pos)).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(422).entity(WsConstants.FAIL_STATUS).build();
