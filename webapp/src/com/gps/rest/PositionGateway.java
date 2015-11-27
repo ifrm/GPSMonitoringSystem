@@ -70,7 +70,6 @@ public class PositionGateway {
             return Response.status(422).entity(WsConstants.FAIL_STATUS).build();
         }
     }
-
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getUserPositionsWithinInterval(@QueryParam("userId") Integer userId, @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MIN_VALUE) @QueryParam("startDate") Long startDate, @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MAX_VALUE) @QueryParam("endDate") Long endDate) {
