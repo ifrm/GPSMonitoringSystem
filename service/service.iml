@@ -10,6 +10,6 @@
     <orderEntry type="library" name="spring" level="project" />
     <orderEntry type="module" module-name="persistence" />
     <orderEntry type="library" name="jackson" level="project" />
+    <orderEntry type="library" name="jsp" level="project" />
   </component>
 </module>
-

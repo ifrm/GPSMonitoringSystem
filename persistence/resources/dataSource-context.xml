@@ -8,7 +8,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/TrackGPS"/>
         <property name="username" value="root"/>
-        <property name="password" value="passs"/>
+        <property name="password" value="root"/>
         <property name="initialSize" value="5"/>
         <property name="maxActive" value="10"/>
     </bean>

@@ -72,11 +72,10 @@ public class PositionGateway {
     }
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getUserPositionsWithinInterval(@QueryParam("userId") Integer userId, @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MIN_VALUE) @QueryParam("startDate") Long startDate, @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MAX_VALUE) @QueryParam("endDate") Long endDate) {
+    public Response getUserPositionsWithinInterval(@QueryParam("userId") Integer userId,
+                                                   @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MIN_VALUE) @QueryParam("startDate") Long startDate,
+                                                   @DefaultValue(PersistenceConstants.MYSQL_TIMESTAMP_MAX_VALUE) @QueryParam("endDate") Long endDate) {
         try {
-            //check_me : remove println
-            System.out.println("userId = [" + userId + "], startDate = [" + new Date(startDate) + "], endDate = [" + new Date(endDate) + "]");
-            System.out.println("userId = [" + userId + "], startDate = [" + startDate + "], endDate = [" + endDate + "]");
             List<Position> pos = positionService.getUserPositionsWithinInterval(userId, startDate, endDate);
             ObjectMapper mapper = new ObjectMapper();
             return Response.status(200).entity(mapper.writeValueAsString(pos)).build();

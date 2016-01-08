@@ -1,0 +1,35 @@
+﻿<div class="col-md-6 col-md-offset-3">
+    <form name="form" ng-submit="vm.getUserPositions()" role="form">
+        <div class="form-group">
+            <label>User:</label>
+            <select ng-model="vm.selectedUser" class="form-control" ng-options="o as o.name for o in vm.allUsers"
+                    required/>
+
+        </div>
+        <div class="form-group">
+            <label>Start date:</label>
+            <input type="datetime-local" name="startDate" ng-model="vm.startDate" class="form-control" required>
+
+        </div>
+        <div class="form-group">
+            <label>End date:</label>
+            <input type="datetime-local" name="endDate" ng-model="vm.endDate" class="form-control" required>
+
+        </div>
+        <div class="form-action">
+            <button type="submit" name="submit" ng-disabled="form.$invalid" class="btn">Search</button>
+        </div>
+        <div>
+            {{vm.selectedUser.name}}
+            {{vm.startDate}}
+            {{vm.endDate}}
+            {{vm.userPositions}}
+        </div>
+    </form>
+</div>
+<div>
+    <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+        <ui-gmap-markers models="vm.Markers" coords="'self'" icon="'icon'">
+        </ui-gmap-markers>
+    </ui-gmap-google-map>
+</div>

@@ -39,6 +39,12 @@
                 <include name="web.xml"/>
             </fileset>
         </copy>
+        <copy todir="${build.dest}/build" includeEmptyDirs="false">
+            <fileset dir="${proj.home}/webapp/resources">
+                <include name="static/**"/>
+                <include name="index.*"/>
+            </fileset>
+        </copy>
         <copy todir="${build.dest}/build/WEB-INF/lib">
             <fileset dir="${ext.dir}/spring">
                 <include name="**/*"/>
@@ -56,6 +62,9 @@
                 <include name="**/*"/>
             </fileset>
             <fileset dir="${ext.dir}/jdbc">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${ext.dir}/jsp">
                 <include name="**/*"/>
             </fileset>
         </copy>
