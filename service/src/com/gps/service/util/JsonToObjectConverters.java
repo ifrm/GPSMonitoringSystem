@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.gps.persistence.dto.Position;
+import com.gps.persistence.dto.User;
+import com.gps.persistence.dto.UserCredentials;
 
 import java.io.IOException;
 import java.util.Date;
@@ -56,5 +58,30 @@ public final class JsonToObjectConverters {
             throw new Exception("Invalid input json!");
         }
         return position;
+    }
+
+    public static UserCredentials convertJsonToUserForLogin(String userCredentialsJson) throws Exception {
+        JsonFactory jasonFactory = new JsonFactory();
+        JsonParser jsonParser;
+        String email = null, password = null;
+        UserCredentials userCredentials=null;
+
+        try {
+            jsonParser = jasonFactory.createParser(userCredentialsJson);
+            jsonParser.nextToken(); // Returns "{" (Which is JsonToken.START_OBJECT)
+            while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
+                String field = jsonParser.getCurrentName();
+                jsonParser.nextToken();
+                if ("username".equals(field)) {
+                    email = jsonParser.getText();
+                } else if ("password".equals(field)) {
+                    password = jsonParser.getText();
+                }
+            }
+        } catch (IOException e) {
+            throw new Exception("Error while parsing input json!", e);
+        }
+        userCredentials=new UserCredentials(email,password);
+        return userCredentials;
     }
 }

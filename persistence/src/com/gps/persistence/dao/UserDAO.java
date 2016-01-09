@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface UserDAO {
     List<User> findAll() throws Exception;
+
+    boolean longin(String userName,String password) throws Exception;
 }

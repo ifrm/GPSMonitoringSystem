@@ -7,8 +7,7 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-
-    function LoginController($rootScope, $scope, $http, $location, $route) {
+    function LoginController($rootScope, $scope, $http, $location, $route,UserService) {
 
         $scope.tab = function(route) {
             return $route.current && route === $route.current.controller;
@@ -16,29 +15,25 @@
 
         var authenticate = function(credentials, callback) {
 
-            var headers = credentials ? {
-                authorization : "Basic "
-                + btoa(credentials.username + ":"
-                    + credentials.password)
-            } : {};
 
-            $http.get('user', {
-                headers : headers
-            }).success(function(data) {
-                if (data.name) {
-                    $rootScope.authenticated = true;
-                } else {
-                    $rootScope.authenticated = false;
-                }
-                callback && callback($rootScope.authenticated);
-            }).error(function() {
-                $rootScope.authenticated = false;
-                callback && callback(false);
-            });
+
+            UserService.Login(credentials).then(
+                function(data) {
+                                if (data.statusText) {
+                                    $rootScope.authenticated = true;
+                                } else {
+                                    $rootScope.authenticated = false;
+                                }
+                                callback && callback($rootScope.authenticated);
+                },function() {
+                                  $rootScope.authenticated = false;
+                                  callback && callback(false);
+                              }
+            );
+
 
         }
 
-        authenticate();
 
         $scope.credentials = {};
         $scope.login = function() {

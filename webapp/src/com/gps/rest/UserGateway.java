@@ -8,8 +8,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Ionatan on 05.01.2016.
  */
 @Component
-@Path("/users")
+    @Path("/users")
 public class UserGateway {
 
     @Autowired
@@ -34,5 +34,19 @@ public class UserGateway {
 
         }
 
+    }
+    @Path("/login")
+    @POST
+    @Consumes({MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response login(String userCredentialsJson){
+        try {
+            userService.login(userCredentialsJson);
+            return Response.status(200).entity(WsConstants.SUCCESS_STATUS).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(422).entity(WsConstants.FAIL_STATUS).build();
+
+        }
     }
 }
